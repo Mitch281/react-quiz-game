@@ -1,6 +1,8 @@
+import ReactHtmlParser from 'react-html-parser';
+
 const Question = (props) => {
     return (
-        <h1 id="question">{props.question}</h1>   
+        <h1 id="question">{ReactHtmlParser (props.question)}</h1>   
     )
 }
 
