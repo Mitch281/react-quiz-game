@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Question from "./components/Question";
 import Timer from "./components/Timer";
 import StartGame from "./components/StartGame";
+import Options from "./components/Options";
 
 function App() {
   const [questionData, setQuestionData] = useState("");
@@ -37,6 +38,7 @@ function App() {
         {startGame && dataLoaded ? <Question question={questionData.results[questionNumber].question} /> : ""}
         {startGame && dataLoaded ? <Timer timeLeft={timeLeft} /> : ""}
       </div>
+      {startGame && dataLoaded ? <Options correctAnswer={correctAnswer} wrongAnswers={wrongAnswers} /> : ""}
     </div>
   );
 }
