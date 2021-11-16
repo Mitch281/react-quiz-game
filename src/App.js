@@ -21,7 +21,8 @@ function App() {
 
   // Fetch questions and answers from api.
   // API used: https://opentdb.com/api_config.php
-  useEffect(() => {async function fetchData() {
+  useEffect(() => {
+    async function fetchData() {
       const url = "https://opentdb.com/api.php?amount=10&type=multiple";
       const response = await fetch(url);
       const data = await response.json();
@@ -83,8 +84,8 @@ function App() {
         {startGame && dataLoaded ? <Question question={question} /> : ""}
         {startGame && dataLoaded ? <Timer timeLeft={timeLeft} /> : ""}
       </div>
-      {startGame && dataLoaded ? <Options correctAnswer={correctAnswer} wrongAnswers={wrongAnswers} 
-      onAnswer={getNextQuestion} timerStarted={timerStarted} resetTimeLeft={resetTimer}/> : ""}
+      {startGame && dataLoaded ? <Options correctAnswer={correctAnswer} wrongAnswers={wrongAnswers}
+        onAnswer={getNextQuestion} timerStarted={timerStarted} resetTimeLeft={resetTimer} /> : ""}
     </div>
   );
 }
