@@ -11,8 +11,9 @@ function App() {
   const [wrongAnswers, setWrongAnswers] = useState([])
   const [questionNumber, setQuestionNumber] = useState(0);
 
-  const [timeLeft, setTimeLeft] = useState(59);
+  const [timeLeft, setTimeLeft] = useState(30);
   const [startGame, setStartGame] = useState(false);
+  const [timerStarted, setTimerStarted] = useState(false);
 
   let dataLoaded = false;
 
@@ -52,15 +53,24 @@ function App() {
     setQuestionNumber((questionNumber) => questionNumber + 1);
   }
 
+  function decrementTimer() {
+    setTimeLeft((timeLeft) => timeLeft - 1);
+  }
+
+  function startTimer() {
+    setTimerStarted(true);
+    setInterval(decrementTimer, 1000);
+  }
+
   return (
     <div className="App">
-      {!startGame ? <StartGame startGame={startGame} onStart={setStartGame} /> : ""}
+      {!startGame ? <StartGame startGame={startGame} onStart={setStartGame} startTimer={startTimer} /> : ""}
       <div id="question-timer-container">
         {startGame && dataLoaded ? <Question question={question} /> : ""}
         {startGame && dataLoaded ? <Timer timeLeft={timeLeft} /> : ""}
       </div>
       {startGame && dataLoaded ? <Options correctAnswer={correctAnswer} wrongAnswers={wrongAnswers} 
-      onAnswer={getNextQuestion} /> : ""}
+      onAnswer={getNextQuestion} timerStarted={timerStarted} /> : ""}
     </div>
   );
 }

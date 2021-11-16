@@ -1,7 +1,6 @@
 import ReactHtmlParser from 'react-html-parser';
 
 const Options = (props) => {
-
     // Taken from mozilla docs.
     function getRandomInt(min, max) {
         min = Math.ceil(min);
@@ -50,7 +49,9 @@ const Options = (props) => {
         }
     }
 
-    determineOrder();
+    if (!props.timerStarted){
+        determineOrder();
+    }
 
     return (
         <div id="options">
