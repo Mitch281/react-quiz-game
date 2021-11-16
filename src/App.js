@@ -24,14 +24,27 @@ function App() {
     const data = await response.json();
     setQuestionData(data);
 
-    // Set the initial questions and options on app run.
+    // Set the initial data.
     setQuestion(data.results[questionNumber].question);
     setCorrectAnswer(data.results[questionNumber].correct_answer);
     setWrongAnswers(data.results[questionNumber].incorrect_answers);
-  }, [questionNumber])
+  }, [])
 
   if (questionData !== "") {
     dataLoaded = true;
+  }
+
+  useEffect(() => {
+    if (dataLoaded) {
+      setData();
+    }
+  }, [questionNumber]);
+
+  function setData() {
+    // Set the data for the next question.
+    setQuestion(questionData.results[questionNumber].question);
+    setCorrectAnswer(questionData.results[questionNumber].correct_answer);
+    setWrongAnswers(questionData.results[questionNumber].incorrect_answers);
   }
 
   // Increments the question number when an answer is clicked, and then goes to the next question.
