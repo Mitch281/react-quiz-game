@@ -1,9 +1,11 @@
 import ReactHtmlParser from 'react-html-parser';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 let correctOrder, wrongOneOrder, wrongTwoOrder, wrongThreeOrder;
 
 const Options = (props) => {
+    const [orderDetermined, setOrderDetermined] = useState(false);
+
     // Taken from mozilla docs.
     function getRandomInt(min, max) {
         min = Math.ceil(min);
@@ -52,28 +54,38 @@ const Options = (props) => {
 
     useEffect(() => {
         determineOrder();
+        setOrderDetermined(true);
     }, [props.correctAnswer]);
 
+    function outputHtml() {
+        if (orderDetermined) {
+            return (
+                <div id="options">
+                    <button style={{ order: correctOrder }} type="button" className="option" id="correct"
+                        onClick={() => { props.onAnswer(); props.resetTimeLeft(); setOrderDetermined(false); }}>
+                        <span>{ReactHtmlParser(props.correctAnswer)}</span>
+                    </button>
+                    <button style={{ order: wrongOneOrder }} type="button" className="option" id="wrong-1"
+                        onClick={() => { props.onAnswer(); props.resetTimeLeft(); setOrderDetermined(false); }}>
+                        <span>{ReactHtmlParser(props.wrongAnswers[0])}</span>
+                    </button>
+                    <button style={{ order: wrongTwoOrder }} type="button" className="option" id="wrong-2"
+                        onClick={() => { props.onAnswer(); props.resetTimeLeft(); setOrderDetermined(false); }}>
+                        <span>{ReactHtmlParser(props.wrongAnswers[1])}</span>
+                    </button>
+                    <button style={{ order: wrongThreeOrder }} type="button" className="option" id="wrong-3"
+                        onClick={() => { props.onAnswer(); props.resetTimeLeft(); setOrderDetermined(false); }}>
+                        <span>{ReactHtmlParser(props.wrongAnswers[2])}</span>
+                    </button>
+                </div>
+            );
+        }
+        return "";
+    }
+
     return (
-        <div id="options">
-            <button style={{ order: correctOrder }} type="button" className="option" id="correct"
-                onClick={() => {props.onAnswer();props.resetTimeLeft();}}>
-                <span>{ReactHtmlParser (props.correctAnswer)}</span>
-            </button>
-            <button style={{ order: wrongOneOrder }} type="button" className="option" id="wrong-1"
-                onClick={() => {props.onAnswer();props.resetTimeLeft();}}>
-                <span>{ReactHtmlParser (props.wrongAnswers[0])}</span>
-            </button>
-            <button style={{ order: wrongTwoOrder }} type="button" className="option" id="wrong-2"
-                onClick={() => {props.onAnswer();props.resetTimeLeft();}}>
-                <span>{ReactHtmlParser (props.wrongAnswers[1])}</span>
-            </button>
-            <button style={{ order: wrongThreeOrder }} type="button" className="option" id="wrong-3"
-                onClick={() => {props.onAnswer();props.resetTimeLeft();}}>
-                <span>{ReactHtmlParser (props.wrongAnswers[2])}</span>
-            </button>
-        </div>
-    )
+        outputHtml()
+    );
 }
 
 export default Options
