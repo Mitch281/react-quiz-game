@@ -13,12 +13,13 @@ function App() {
   useEffect(() => {
     fetch("https://opentdb.com/api.php?amount=10")
     .then(res => res.json())
-    .then(data => setQuestionData((questionData) => questionData = data));
+    .then(data => setQuestionData(data));
   }, [])
 
   // Check if we have successfully loaded our question data from api. If not, do not render components yet!
   if (questionData !== "") {
     dataLoaded = true;
+    console.log(questionData);
   }
 
   return (
