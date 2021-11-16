@@ -4,6 +4,8 @@ import Timer from "./components/Timer";
 import StartGame from "./components/StartGame";
 import Options from "./components/Options";
 
+const TIME_LIMIT = 30;
+
 function App() {
   const [questionData, setQuestionData] = useState("");
   const [question, setQuestion] = useState("");
@@ -11,7 +13,7 @@ function App() {
   const [wrongAnswers, setWrongAnswers] = useState([])
   const [questionNumber, setQuestionNumber] = useState(0);
 
-  const [timeLeft, setTimeLeft] = useState(30);
+  const [timeLeft, setTimeLeft] = useState(TIME_LIMIT);
   const [startGame, setStartGame] = useState(false);
   const [timerStarted, setTimerStarted] = useState(false);
 
@@ -56,6 +58,10 @@ function App() {
     setQuestionNumber((questionNumber) => questionNumber + 1);
   }
 
+  function resetTimer() {
+    setTimeLeft(TIME_LIMIT);
+  }
+
   function decrementTimer() {
     setTimeLeft((timeLeft) => timeLeft - 1);
   }
@@ -63,6 +69,11 @@ function App() {
   function startTimer() {
     setTimerStarted(true);
     setInterval(decrementTimer, 1000);
+  }
+
+  if (timeLeft === 0) {
+    resetTimer();
+    getNextQuestion();;
   }
 
   return (
@@ -73,7 +84,7 @@ function App() {
         {startGame && dataLoaded ? <Timer timeLeft={timeLeft} /> : ""}
       </div>
       {startGame && dataLoaded ? <Options correctAnswer={correctAnswer} wrongAnswers={wrongAnswers} 
-      onAnswer={getNextQuestion} timerStarted={timerStarted} /> : ""}
+      onAnswer={getNextQuestion} timerStarted={timerStarted} resetTimeLeft={resetTimer}/> : ""}
     </div>
   );
 }

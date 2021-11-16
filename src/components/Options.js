@@ -56,19 +56,19 @@ const Options = (props) => {
     return (
         <div id="options">
             <button style={{ order: correctOrder }} type="button" className="option" id="correct"
-                onClick={() => props.onAnswer()}>
+                onClick={() => {props.onAnswer();props.resetTimeLeft();}}>
                 <span>{ReactHtmlParser (props.correctAnswer)}</span>
             </button>
             <button style={{ order: wrongOneOrder }} type="button" className="option" id="wrong-1"
-                onClick={() => props.onAnswer()}>
+                onClick={() => {props.onAnswer();props.resetTimeLeft();}}>
                 <span>{ReactHtmlParser (props.wrongAnswers[0])}</span>
             </button>
             <button style={{ order: wrongTwoOrder }} type="button" className="option" id="wrong-2"
-                onClick={() => props.onAnswer()}>
+                onClick={() => {props.onAnswer();props.resetTimeLeft();}}>
                 <span>{ReactHtmlParser (props.wrongAnswers[1])}</span>
             </button>
             <button style={{ order: wrongThreeOrder }} type="button" className="option" id="wrong-3"
-                onClick={() => props.onAnswer()}>
+                onClick={() => {props.onAnswer();props.resetTimeLeft();}}>
                 <span>{ReactHtmlParser (props.wrongAnswers[2])}</span>
             </button>
         </div>
