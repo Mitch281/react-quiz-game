@@ -1,4 +1,7 @@
 import ReactHtmlParser from 'react-html-parser';
+import { useEffect } from "react";
+
+let correctOrder, wrongOneOrder, wrongTwoOrder, wrongThreeOrder;
 
 const Options = (props) => {
     // Taken from mozilla docs.
@@ -7,8 +10,6 @@ const Options = (props) => {
         max = Math.floor(max);
         return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive.          
     }
-
-    let correctOrder, wrongOneOrder, wrongTwoOrder, wrongThreeOrder;
 
     function determineOrder() {
         const orders = [1, 2, 3, 4]
@@ -49,9 +50,9 @@ const Options = (props) => {
         }
     }
 
-    if (!props.timerStarted){
+    useEffect(() => {
         determineOrder();
-    }
+    }, [props.correctAnswer]);
 
     return (
         <div id="options">
