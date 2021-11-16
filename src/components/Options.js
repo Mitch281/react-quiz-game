@@ -1,5 +1,7 @@
+import ReactHtmlParser from 'react-html-parser';
+
 const Options = (props) => {
-    
+
     // Taken from mozilla docs.
     function getRandomInt(min, max) {
         min = Math.ceil(min);
@@ -52,17 +54,21 @@ const Options = (props) => {
 
     return (
         <div id="options">
-            <button style={{order: correctOrder}} type="button" className="option" id="correct">
-                <span>{props.correctAnswer}</span>
+            <button style={{ order: correctOrder }} type="button" className="option" id="correct"
+                onClick={() => props.onAnswer()}>
+                <span>{ReactHtmlParser (props.correctAnswer)}</span>
             </button>
-            <button style={{order: wrongOneOrder}} type="button" className="option" id="wrong-1">
-                <span>{props.wrongAnswers[0]}</span>
+            <button style={{ order: wrongOneOrder }} type="button" className="option" id="wrong-1"
+                onClick={() => props.onAnswer()}>
+                <span>{ReactHtmlParser (props.wrongAnswers[0])}</span>
             </button>
-            <button style={{order: wrongTwoOrder}} type="button" className="option" id="wrong-2">
-                <span>{props.wrongAnswers[1]}</span>
+            <button style={{ order: wrongTwoOrder }} type="button" className="option" id="wrong-2"
+                onClick={() => props.onAnswer()}>
+                <span>{ReactHtmlParser (props.wrongAnswers[1])}</span>
             </button>
-            <button style={{order: wrongThreeOrder}} type="button" className="option" id="wrong-3" >
-                <span>{props.wrongAnswers[2]}</span>
+            <button style={{ order: wrongThreeOrder }} type="button" className="option" id="wrong-3"
+                onClick={() => props.onAnswer()}>
+                <span>{ReactHtmlParser (props.wrongAnswers[2])}</span>
             </button>
         </div>
     )
