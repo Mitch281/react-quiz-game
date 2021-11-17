@@ -27,6 +27,10 @@ button {
   background-color: black;
 }
 
+#start-game-container button:hover {
+  border: 5px solid greenyellow;
+}
+
 #start-game-container button span {
   font-family: Oswald;
   font-size: 3em;
@@ -54,6 +58,11 @@ button {
   background-color: black;
   width: 25vw;
   height: 7vw;
+  border: none;
+}
+
+#options button:hover {
+  border: 3px solid greenyellow;
 }
 
 #options button span {
