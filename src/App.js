@@ -15,6 +15,7 @@ function App() {
 
   const [timeLeft, setTimeLeft] = useState(TIME_LIMIT);
   const [startGame, setStartGame] = useState(false);
+  const [finishedGame, setFinishedGame] = useState(false);
   const [timerStarted, setTimerStarted] = useState(false);
 
   let dataLoaded = false;
@@ -48,10 +49,17 @@ function App() {
   }, [questionNumber]);
 
   function setData() {
-    // Set the data for the next question.
-    setQuestion(questionData.results[questionNumber].question);
-    setCorrectAnswer(questionData.results[questionNumber].correct_answer);
-    setWrongAnswers(questionData.results[questionNumber].incorrect_answers);
+    try {
+      // Set the data for the next question.
+      setQuestion(questionData.results[questionNumber].question);
+      setCorrectAnswer(questionData.results[questionNumber].correct_answer);
+      setWrongAnswers(questionData.results[questionNumber].incorrect_answers);
+    } 
+    // The user has answered all of the questions. Thus, we do not want to get the next question.
+    catch (error) {
+      setStartGame(false);
+      setFinishedGame(true);
+    }
   }
 
   // Increments the question number when an answer is clicked, and then goes to the next question.
@@ -79,12 +87,12 @@ function App() {
 
   return (
     <div className="App">
-      {!startGame ? <StartGame startGame={startGame} onStart={setStartGame} startTimer={startTimer} /> : ""}
+      {!startGame && !finishedGame ? <StartGame startGame={startGame} onStart={setStartGame} startTimer={startTimer} /> : ""}
       <div id="question-timer-container">
-        {startGame && dataLoaded ? <Question question={question} /> : ""}
-        {startGame && dataLoaded ? <Timer timeLeft={timeLeft} /> : ""}
+        {startGame && dataLoaded && !finishedGame ? <Question question={question} /> : ""}
+        {startGame && dataLoaded && !finishedGame ? <Timer timeLeft={timeLeft} /> : ""}
       </div>
-      {startGame && dataLoaded ? <Options correctAnswer={correctAnswer} wrongAnswers={wrongAnswers}
+      {startGame && dataLoaded && !finishedGame ? <Options correctAnswer={correctAnswer} wrongAnswers={wrongAnswers}
         onAnswer={getNextQuestion} timerStarted={timerStarted} resetTimeLeft={resetTimer} /> : ""}
     </div>
   );
