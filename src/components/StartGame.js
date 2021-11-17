@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { useEffect } from "react/cjs/react.development";
 
-//TODO: Add check to ensure that numberQuestions is between 0 and 50 (not working?).
-
 const StartGame = (props) => {
     const [categoryOptions, setCategoryOptions] = useState("");
 
@@ -23,8 +21,10 @@ const StartGame = (props) => {
     function beginTheQuiz(e) {
         e.preventDefault(); // Stops page reload (default behaviour of form submission.)
         setNumberQuestions((numberQuestions) => numberQuestions.trim());
+        console.log(category);
+        console.log(difficulty);
 
-        if (numberQuestions == "") {
+        if (numberQuestions === "") {
             alert("Please enter a number between 1 and 50 for the number of questions.");
             return;
         }
@@ -36,6 +36,9 @@ const StartGame = (props) => {
             alert("Please enter a number between 1 and 50 for the number of questions.");
             return;
         }
+
+        props.setSettings(numberQuestions, category, difficulty);
+        props.startTimer();
 
         setNumberQuestions("");
         setCategory("");
@@ -59,15 +62,14 @@ const StartGame = (props) => {
 
                 <label htmlFor="category">Select Category:</label>
                 <select id="category" onChange={(e) => setCategory(e.target.value)}>
-                    <option>Select Category</option>
                     {categoryOptions}
                 </select>
 
                 <label htmlFor="difficulty">Select difficulty: </label>
                 <select id="difficulty" onChange={(e) => setDifficulty(e.target.value)}>
-                    <option value="Easy">Easy</option>
-                    <option value="Medium">Medium</option>
-                    <option value="Hard">Hard</option>
+                    <option value="easy">Easy</option>
+                    <option value="medium">Medium</option>
+                    <option value="hard">Hard</option>
                 </select>
 
                 <input type="submit" value="Start" />
