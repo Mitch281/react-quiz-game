@@ -4,6 +4,7 @@ import Timer from "./components/Timer";
 import StartGame from "./components/StartGame";
 import Options from "./components/Options";
 import Results from "./components/Results";
+import QuestionNumberTracker from "./components/QuestionNumberTracker";
 
 const TIME_LIMIT = 30;
 let dataLoaded = false;
@@ -41,7 +42,6 @@ function App() {
 
   useEffect(() => {
     async function fetchData() {
-      console.log(dataUrl);
       const response = await fetch(dataUrl);
       const data = await response.json();
       setQuestionData(data);
@@ -131,11 +131,16 @@ function App() {
     <div className="App">
       {!startGame && categoriesLoaded && !finishedGame ? <StartGame startGame={startGame} onStart={setStartGame} startTimer={startTimer}
       categories={categories} setSettings={setSettings} /> : ""}
+
       {finishedGame ? <Results score={score} /> : ""}
+
+      {startGame && dataLoaded && !finishedGame ? <QuestionNumberTracker questionNumber={questionNumber} /> : ""}
+
       <div id="question-timer-container">
         {startGame && dataLoaded && !finishedGame ? <Question question={question} /> : ""}
         {startGame && dataLoaded && !finishedGame ? <Timer timeLeft={timeLeft} /> : ""}
       </div>
+
       {startGame && dataLoaded && !finishedGame ? <Options correctAnswer={correctAnswer} wrongAnswers={wrongAnswers}
         onAnswer={getNextQuestion} timerStarted={timerStarted} resetTimeLeft={resetTimer} checkAnswer={checkAnswer} /> : ""}
     </div>
