@@ -21,6 +21,8 @@ function App() {
   const [finishedGame, setFinishedGame] = useState(false);
   const [timerStarted, setTimerStarted] = useState(false);
 
+  const [categories, setCategories] = useState("");
+
   // Fetch questions and answers from api.
   // API used: https://opentdb.com/api_config.php
   useEffect(() => {
@@ -39,7 +41,21 @@ function App() {
     fetchData();
   }, [])
 
-  if (questionData !== "") {
+  // Fetch categories and their id's from api. This helps us creating select menu for categories, in that we won't
+  // need to manually write a bunch of html option tags.
+  useEffect(() => {
+    async function fetchCategories() {
+      const url = "https://opentdb.com/api_category.php";
+      const response = await fetch(url);
+      const data = await response.json();
+      
+      setCategories(data.trivia_categories);
+    }
+
+    fetchCategories();
+  }, [])
+
+  if (questionData !== "" && categories !== "") {
     dataLoaded = true;
   }
 
@@ -101,7 +117,8 @@ function App() {
 
   return (
     <div className="App">
-      {!startGame && !finishedGame ? <StartGame startGame={startGame} onStart={setStartGame} startTimer={startTimer} /> : ""}
+      {!startGame && dataLoaded && !finishedGame ? <StartGame startGame={startGame} onStart={setStartGame} startTimer={startTimer}
+      categories={categories} /> : ""}
       {finishedGame ? <Results score={score} /> : ""}
       <div id="question-timer-container">
         {startGame && dataLoaded && !finishedGame ? <Question question={question} /> : ""}
