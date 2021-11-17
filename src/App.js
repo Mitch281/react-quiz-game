@@ -3,8 +3,11 @@ import Question from "./components/Question";
 import Timer from "./components/Timer";
 import StartGame from "./components/StartGame";
 import Options from "./components/Options";
+import Results from "./components/Results";
 
 const TIME_LIMIT = 30;
+let dataLoaded = false;
+let score = 0;
 
 function App() {
   const [questionData, setQuestionData] = useState("");
@@ -17,8 +20,6 @@ function App() {
   const [startGame, setStartGame] = useState(false);
   const [finishedGame, setFinishedGame] = useState(false);
   const [timerStarted, setTimerStarted] = useState(false);
-
-  let dataLoaded = false;
 
   // Fetch questions and answers from api.
   // API used: https://opentdb.com/api_config.php
@@ -89,10 +90,7 @@ function App() {
       optionSelected = e.target.innerText;
     }
     if (optionSelected === correctAnswer) {
-      console.log("correct");
-    }
-    else {
-      console.log("wrong");
+      score++;
     }
   }
 
@@ -104,6 +102,7 @@ function App() {
   return (
     <div className="App">
       {!startGame && !finishedGame ? <StartGame startGame={startGame} onStart={setStartGame} startTimer={startTimer} /> : ""}
+      {finishedGame ? <Results score={score} /> : ""}
       <div id="question-timer-container">
         {startGame && dataLoaded && !finishedGame ? <Question question={question} /> : ""}
         {startGame && dataLoaded && !finishedGame ? <Timer timeLeft={timeLeft} /> : ""}
