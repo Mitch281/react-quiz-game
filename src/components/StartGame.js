@@ -1,8 +1,12 @@
 const StartGame = (props) => {
     return (
-        <>
-            <button type="button" onClick={() => { props.onStart(true); props.startTimer(); }}>Start Game</button>
-        </>
+        <div id="start-game-container">
+            <button type="button" onClick={() => { props.onStart(true); props.startTimer(); }}>
+                <span>
+                    Start Game
+                </span>
+            </button>
+        </div>
     )
 }
 

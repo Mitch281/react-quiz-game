@@ -1,3 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200&display=swap');
+
+#question, span {
+  font-family: Oswald;
+}
+
+button {
+  cursor: pointer;
+}
+
+#timer {
+  font-family: Oswald;
+}
+
+#start-game-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+}
+
+#start-game-container button {
+  width: 500px;
+  height: 200px;
+  background-color: black;
+}
+
+#start-game-container button span {
+  font-family: Oswald;
+  font-size: 3em;
+  color: white;
+}
+
 #question-timer-container {
   display: flex;
   flex-direction: column;
@@ -9,5 +44,18 @@
 #options {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+#options button {
+  flex: 40%;
+  background-color: black;
+  width: 25vw;
+  height: 7vw;
+}
+
+#options button span {
+  color: white;
 }

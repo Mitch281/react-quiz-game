@@ -1,7 +1,7 @@
 import ReactHtmlParser from 'react-html-parser';
 import { useEffect, useState } from "react";
 
-let correctOrder, wrongOneOrder, wrongTwoOrder, wrongThreeOrder;
+let orderOne, orderTwo, orderThree, orderFour;
 
 const Options = (props) => {
     const [orderDetermined, setOrderDetermined] = useState(false);
@@ -22,33 +22,46 @@ const Options = (props) => {
             switch (counter) {
                 case 0:
                     if (orders.includes(order)) {
-                        correctOrder = orders[orderIndex];
+                        orderOne = orders[orderIndex];
                         orders.splice(orderIndex, 1);
                         counter++;
                     }
                     break;
                 case 1:
                     if (orders.includes(order)) {
-                        wrongOneOrder = orders[orderIndex];
+                        orderTwo = orders[orderIndex];
                         orders.splice(orderIndex, 1);
                         counter++;
                     }
                     break;
                 case 2:
                     if (orders.includes(order)) {
-                        wrongTwoOrder = orders[orderIndex];
+                        orderThree = orders[orderIndex];
                         orders.splice(orderIndex, 1);
                         counter++;
                     }
                     break;
                 case 3:
                     if (orders.includes(order)) {
-                        wrongThreeOrder = orders[orderIndex];
+                        orderFour = orders[orderIndex];
                         orders.splice(orderIndex, 1);
                         counter++;
                     }
                     break;
             }
+        }
+    }
+
+    function determineClassName(orderName) {
+        switch (orderName) {
+            case 1:
+                return "top-left";
+            case 2:
+                return "top-right";
+            case 3:
+                return "bottom-left";
+            case 4:
+                return "bottom-right";
         }
     }
 
@@ -61,20 +74,20 @@ const Options = (props) => {
         if (orderDetermined) {
             return (
                 <div id="options">
-                    <button style={{ order: correctOrder }} type="button" className="option" id="correct"
-                        onClick={() => { props.onAnswer(); props.resetTimeLeft(); setOrderDetermined(false); }}>
+                    <button style={{ order: orderOne }} type="button" className="option"
+                        onClick={(e) => { props.onAnswer(); props.resetTimeLeft(); setOrderDetermined(false); }}>
                         <span>{ReactHtmlParser(props.correctAnswer)}</span>
                     </button>
-                    <button style={{ order: wrongOneOrder }} type="button" className="option" id="wrong-1"
-                        onClick={() => { props.onAnswer(); props.resetTimeLeft(); setOrderDetermined(false); }}>
+                    <button style={{ order: orderTwo }} type="button" className="option"
+                        onClick={(e) => { props.onAnswer(); props.resetTimeLeft(); setOrderDetermined(false); }}>
                         <span>{ReactHtmlParser(props.wrongAnswers[0])}</span>
                     </button>
-                    <button style={{ order: wrongTwoOrder }} type="button" className="option" id="wrong-2"
-                        onClick={() => { props.onAnswer(); props.resetTimeLeft(); setOrderDetermined(false); }}>
+                    <button style={{ order: orderThree }} type="button" className="option"
+                        onClick={(e) => { props.onAnswer(); props.resetTimeLeft(); setOrderDetermined(false); }}>
                         <span>{ReactHtmlParser(props.wrongAnswers[1])}</span>
                     </button>
-                    <button style={{ order: wrongThreeOrder }} type="button" className="option" id="wrong-3"
-                        onClick={() => { props.onAnswer(); props.resetTimeLeft(); setOrderDetermined(false); }}>
+                    <button style={{ order: orderFour }} type="button" className="option"
+                        onClick={(e) => { props.onAnswer(); props.resetTimeLeft(); setOrderDetermined(false); }}>
                         <span>{ReactHtmlParser(props.wrongAnswers[2])}</span>
                     </button>
                 </div>
