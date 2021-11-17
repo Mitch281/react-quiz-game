@@ -62,19 +62,23 @@ const Options = (props) => {
             return (
                 <div id="options">
                     <button style={{ order: orderOne }} type="button" className="option"
-                        onClick={(e) => { props.onAnswer(); props.resetTimeLeft(); setOrderDetermined(false); }}>
+                        onClick={(e) => 
+                        { props.onAnswer(); props.resetTimeLeft(); setOrderDetermined(false); props.checkAnswer(e)}}>
                         <span>{ReactHtmlParser(props.correctAnswer)}</span>
                     </button>
                     <button style={{ order: orderTwo }} type="button" className="option"
-                        onClick={(e) => { props.onAnswer(); props.resetTimeLeft(); setOrderDetermined(false); }}>
+                        onClick={(e) => 
+                        { props.onAnswer(); props.resetTimeLeft(); setOrderDetermined(false); props.checkAnswer(e)}}>
                         <span>{ReactHtmlParser(props.wrongAnswers[0])}</span>
                     </button>
                     <button style={{ order: orderThree }} type="button" className="option"
-                        onClick={(e) => { props.onAnswer(); props.resetTimeLeft(); setOrderDetermined(false); }}>
+                        onClick={(e) => 
+                        { props.onAnswer(); props.resetTimeLeft(); setOrderDetermined(false); props.checkAnswer(e)}}>
                         <span>{ReactHtmlParser(props.wrongAnswers[1])}</span>
                     </button>
                     <button style={{ order: orderFour }} type="button" className="option"
-                        onClick={(e) => { props.onAnswer(); props.resetTimeLeft(); setOrderDetermined(false); }}>
+                        onClick={(e) => 
+                        { props.onAnswer(); props.resetTimeLeft(); setOrderDetermined(false); props.checkAnswer(e)}}>
                         <span>{ReactHtmlParser(props.wrongAnswers[2])}</span>
                     </button>
                 </div>

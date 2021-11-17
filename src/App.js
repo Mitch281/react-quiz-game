@@ -80,6 +80,22 @@ function App() {
     setInterval(decrementTimer, 1000);
   }
 
+  function checkAnswer(e) {
+    let optionSelected;
+    if (e.target instanceof HTMLButtonElement) {
+      optionSelected = e.target.outerText;
+    }
+    else if (e.target instanceof HTMLSpanElement) {
+      optionSelected = e.target.innerText;
+    }
+    if (optionSelected === correctAnswer) {
+      console.log("correct");
+    }
+    else {
+      console.log("wrong");
+    }
+  }
+
   if (timeLeft === 0) {
     resetTimer();
     getNextQuestion();;
@@ -93,7 +109,7 @@ function App() {
         {startGame && dataLoaded && !finishedGame ? <Timer timeLeft={timeLeft} /> : ""}
       </div>
       {startGame && dataLoaded && !finishedGame ? <Options correctAnswer={correctAnswer} wrongAnswers={wrongAnswers}
-        onAnswer={getNextQuestion} timerStarted={timerStarted} resetTimeLeft={resetTimer} /> : ""}
+        onAnswer={getNextQuestion} timerStarted={timerStarted} resetTimeLeft={resetTimer} checkAnswer={checkAnswer} /> : ""}
     </div>
   );
 }
