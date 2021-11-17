@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200&display=swap');
 
-#question, span {
+* {
   font-family: Oswald;
 }
 
@@ -9,32 +9,43 @@ button {
   cursor: pointer;
 }
 
-#timer {
-  font-family: Oswald;
-}
-
-#start-game-container {
+#form-inputs {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 400px;
 }
 
-#start-game-container button {
-  width: 500px;
-  height: 200px;
+#form-inputs * {
+  margin-top: 10px;
+}
+
+#form-inputs select:hover, #form-inputs label:hover {
+  cursor: pointer;
+}
+
+#submission {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+}
+
+#submission input {
   background-color: black;
-}
-
-#start-game-container button:hover {
-  border: 5px solid greenyellow;
-}
-
-#start-game-container button span {
-  font-family: Oswald;
-  font-size: 3em;
   color: white;
+  width: 50vw;
+  height: 10vh;
+  border: none;
+}
+
+#submission input:hover {
+  border: 3px solid greenyellow;
+  cursor: pointer;
+}
+
+#timer {
+  font-family: Oswald;
 }
 
 #question-timer-container {

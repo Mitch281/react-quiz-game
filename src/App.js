@@ -7,6 +7,7 @@ import Results from "./components/Results";
 
 const TIME_LIMIT = 30;
 let dataLoaded = false;
+let categoriesLoaded = false;
 let score = 0;
 
 function App() {
@@ -21,26 +22,66 @@ function App() {
   const [finishedGame, setFinishedGame] = useState(false);
   const [timerStarted, setTimerStarted] = useState(false);
 
+  const [categories, setCategories] = useState("");
+  const [dataUrl, setDataUrl] = useState("");
+
   // Fetch questions and answers from api.
   // API used: https://opentdb.com/api_config.php
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const url = "https://opentdb.com/api.php?amount=10&type=multiple";
+  //     const response = await fetch(url);
+  //     const data = await response.json();
+  //     setQuestionData(data);
+
+  //     // Set the initial data.
+  //     setQuestion(data.results[questionNumber].question);
+  //     setCorrectAnswer(data.results[questionNumber].correct_answer);
+  //     setWrongAnswers(data.results[questionNumber].incorrect_answers);
+  //   }
+
+  //   fetchData();
+  // }, [])
+
+  // Fetch categories and their id's from api. This helps us creating select menu for categories, in that we won't
+  // need to manually write a bunch of html option tags.
   useEffect(() => {
-    async function fetchData() {
-      const url = "https://opentdb.com/api.php?amount=10&type=multiple";
+    async function fetchCategories() {
+      const url = "https://opentdb.com/api_category.php";
       const response = await fetch(url);
       const data = await response.json();
-      setQuestionData(data);
+      
+      setCategories(data.trivia_categories);
+    }
 
+    fetchCategories();
+  }, [])
+
+  useEffect(() => {
+    async function fetchData() {
+      console.log(dataUrl);
+      const response = await fetch(dataUrl);
+      const data = await response.json();
+      setQuestionData(data);
+  
       // Set the initial data.
       setQuestion(data.results[questionNumber].question);
       setCorrectAnswer(data.results[questionNumber].correct_answer);
       setWrongAnswers(data.results[questionNumber].incorrect_answers);
-    }
+    } 
 
-    fetchData();
-  }, [])
+    // We need to check this because the useEffect hook runs on component load, when data url is empty.
+    if (!(dataUrl === "")){
+      fetchData();
+    }
+  }, [dataUrl]);
 
   if (questionData !== "") {
     dataLoaded = true;
+  }
+
+  if (categories !== "") {
+    categoriesLoaded = true;
   }
 
   useEffect(() => {
@@ -94,6 +135,11 @@ function App() {
     }
   }
 
+  function setSettings(numberQuestions, category, difficulty) {
+    setStartGame(true);
+    setDataUrl(`https://opentdb.com/api.php?amount=${numberQuestions}&category=${category}&difficulty=${difficulty}&type=multiple`);
+  }
+
   if (timeLeft === 0) {
     resetTimer();
     getNextQuestion();;
@@ -101,7 +147,8 @@ function App() {
 
   return (
     <div className="App">
-      {!startGame && !finishedGame ? <StartGame startGame={startGame} onStart={setStartGame} startTimer={startTimer} /> : ""}
+      {!startGame && categoriesLoaded && !finishedGame ? <StartGame startGame={startGame} onStart={setStartGame} startTimer={startTimer}
+      categories={categories} setSettings={setSettings} /> : ""}
       {finishedGame ? <Results score={score} /> : ""}
       <div id="question-timer-container">
         {startGame && dataLoaded && !finishedGame ? <Question question={question} /> : ""}
