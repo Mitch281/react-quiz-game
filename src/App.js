@@ -25,24 +25,6 @@ function App() {
   const [categories, setCategories] = useState("");
   const [dataUrl, setDataUrl] = useState("");
 
-  // Fetch questions and answers from api.
-  // API used: https://opentdb.com/api_config.php
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     const url = "https://opentdb.com/api.php?amount=10&type=multiple";
-  //     const response = await fetch(url);
-  //     const data = await response.json();
-  //     setQuestionData(data);
-
-  //     // Set the initial data.
-  //     setQuestion(data.results[questionNumber].question);
-  //     setCorrectAnswer(data.results[questionNumber].correct_answer);
-  //     setWrongAnswers(data.results[questionNumber].incorrect_answers);
-  //   }
-
-  //   fetchData();
-  // }, [])
-
   // Fetch categories and their id's from api. This helps us creating select menu for categories, in that we won't
   // need to manually write a bunch of html option tags.
   useEffect(() => {
