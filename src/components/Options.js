@@ -52,19 +52,6 @@ const Options = (props) => {
         }
     }
 
-    function determineClassName(orderName) {
-        switch (orderName) {
-            case 1:
-                return "top-left";
-            case 2:
-                return "top-right";
-            case 3:
-                return "bottom-left";
-            case 4:
-                return "bottom-right";
-        }
-    }
-
     useEffect(() => {
         determineOrder();
         setOrderDetermined(true);
