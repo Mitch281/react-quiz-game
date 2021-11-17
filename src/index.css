@@ -21,12 +21,6 @@ button {
   height: 400px;
 }
 
-#start-game-container button {
-  width: 500px;
-  height: 200px;
-  background-color: black;
-}
-
 #start-game-container button:hover {
   border: 5px solid greenyellow;
 }
