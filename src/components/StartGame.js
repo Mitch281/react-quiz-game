@@ -54,8 +54,8 @@ const StartGame = (props) => {
     }, []);
 
     return (
-        <div id="start-game-container">
-            <form onSubmit={beginTheQuiz}>
+        <form onSubmit={beginTheQuiz}>
+            <div id="form-inputs">
                 <label htmlFor="number-of-questions">Number of Questions</label>
                 <input type="text" id="number-of-questions" onChange={(e) => setNumberQuestions(e.target.value)}
                 value={numberQuestions}></input>
@@ -71,11 +71,13 @@ const StartGame = (props) => {
                     <option value="medium">Medium</option>
                     <option value="hard">Hard</option>
                 </select>
+            </div>
 
+            <div id="submission">
                 <input type="submit" value="Start" />
-            </form>
-        </div>
-    )
+            </div>
+        </form>
+    );
 }
 
 export default StartGame
