@@ -122,6 +122,8 @@ function App() {
     if (optionSelected === correctAnswer) {
       score.current += 1;
     }
+
+    resetTimer();
   }
 
   function setSettings(numberQuestions, category, difficulty) {
