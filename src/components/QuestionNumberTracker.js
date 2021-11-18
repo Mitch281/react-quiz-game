@@ -1,7 +1,9 @@
 const QuestionNumberTracker = (props) => {
     return (
         <div>
-            {props.questionNumber}
+            <span>{props.questionNumber} / {props.enteredNumberQuestions}</span>
+            <span>{props.enteredCategory}</span>
+            <span>{props.enteredDifficulty}</span>
         </div>
     )
 }

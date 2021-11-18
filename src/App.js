@@ -27,6 +27,7 @@ function App() {
   const [dataUrl, setDataUrl] = useState("");
 
   const score = useRef(0);
+  const enteredNumberQuestions = useRef(0);
 
   // Fetch categories and their id's from api. This helps us creating select menu for categories, in that we won't
   // need to manually write a bunch of html option tags.
@@ -35,7 +36,7 @@ function App() {
       const url = "https://opentdb.com/api_category.php";
       const response = await fetch(url);
       const data = await response.json();
-      
+
       setCategories(data.trivia_categories);
     }
 
@@ -47,15 +48,15 @@ function App() {
       const response = await fetch(dataUrl);
       const data = await response.json();
       setQuestionData(data);
-  
+
       // Set the initial data.
       setQuestion(data.results[questionNumber].question);
       setCorrectAnswer(data.results[questionNumber].correct_answer);
       setWrongAnswers(data.results[questionNumber].incorrect_answers);
-    } 
+    }
 
     // We need to check this because the useEffect hook runs on component load, when data url is empty.
-    if (!(dataUrl === "")){
+    if (!(dataUrl === "")) {
       fetchData();
     }
   }, [dataUrl]);
@@ -84,7 +85,7 @@ function App() {
       setQuestion(questionData.results[questionNumber].question);
       setCorrectAnswer(questionData.results[questionNumber].correct_answer);
       setWrongAnswers(questionData.results[questionNumber].incorrect_answers);
-    } 
+    }
     // The user has answered all of the questions. Thus, we do not want to get the next question.
     catch (error) {
       setStartGame(false);
@@ -124,6 +125,7 @@ function App() {
   }
 
   function setSettings(numberQuestions, category, difficulty) {
+    enteredNumberQuestions.current = parseInt(numberQuestions);
     setStartGame(true);
     setDataUrl(`https://opentdb.com/api.php?amount=${numberQuestions}&category=${category}&difficulty=${difficulty}&type=multiple`);
   }
@@ -135,12 +137,13 @@ function App() {
 
   return (
     <div className="App">
-      {!startGame && categoriesLoaded && !finishedGame ? <StartGame startGame={startGame} onStart={setStartGame} startTimer={startTimer}
-      categories={categories} setSettings={setSettings} /> : ""}
+      {!startGame && categoriesLoaded && !finishedGame ? <StartGame startGame={startGame} onStart={setStartGame} 
+      startTimer={startTimer} categories={categories} setSettings={setSettings} /> : ""}
 
       {finishedGame ? <Results score={score.current} /> : ""}
 
-      {startGame && dataLoaded && !finishedGame ? <QuestionNumberTracker questionNumber={questionNumber} /> : ""}
+      {startGame && dataLoaded && !finishedGame ? <QuestionNumberTracker questionNumber={questionNumber} 
+      enteredNumberQuestions={enteredNumberQuestions.current} /> : ""}
 
       <div id="question-timer-container">
         {startGame && dataLoaded && !finishedGame ? <Question question={question} /> : ""}
@@ -148,7 +151,8 @@ function App() {
       </div>
 
       {startGame && dataLoaded && !finishedGame ? <Options correctAnswer={correctAnswer} wrongAnswers={wrongAnswers}
-        onAnswer={getNextQuestion} timerStarted={timerStarted} resetTimeLeft={resetTimer} checkAnswer={checkAnswer} /> : ""}
+        onAnswer={getNextQuestion} timerStarted={timerStarted} resetTimeLeft={resetTimer} checkAnswer={checkAnswer} /> 
+        : ""}
     </div>
   );
 }

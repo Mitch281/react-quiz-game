@@ -21,8 +21,6 @@ const StartGame = (props) => {
     function beginTheQuiz(e) {
         e.preventDefault(); // Stops page reload (default behaviour of form submission.)
         setNumberQuestions((numberQuestions) => numberQuestions.trim());
-        console.log(category);
-        console.log(difficulty);
 
         if (numberQuestions === "") {
             alert("Please enter a number between 1 and 50 for the number of questions.");
