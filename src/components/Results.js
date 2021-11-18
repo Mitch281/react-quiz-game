@@ -1,8 +1,6 @@
 import ReactHtmlParser from 'react-html-parser';
-import { useState, useEffect } from 'react/cjs/react.development';
 
 const Results = (props) => {
-    const [results, setResults] = useState("");
 
     function createTableRow(playersAnswer) {
         const key = Math.floor(Math.random() * 10000);
@@ -15,10 +13,6 @@ const Results = (props) => {
             </tr>
         );
     }
-
-    useEffect(() => {
-        setResults(props.playersAnswers.map(createTableRow));
-    }, [])
 
     return (
         <div>
@@ -33,7 +27,7 @@ const Results = (props) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {results}
+                    {props.playersAnswers.map(createTableRow)}
                 </tbody>
             </table>
         </div>
