@@ -7,7 +7,6 @@ import Results from "./components/Results";
 import QuestionNumberTracker from "./components/QuestionNumberTracker";
 
 const TIME_LIMIT = 30;
-let dataLoaded = false;
 let categoriesLoaded = false;
 
 function App() {
@@ -18,9 +17,11 @@ function App() {
   const [questionNumber, setQuestionNumber] = useState(0);
 
   const [timeLeft, setTimeLeft] = useState(TIME_LIMIT);
+
   const [startGame, setStartGame] = useState(false);
   const [finishedGame, setFinishedGame] = useState(false);
   const [timerStarted, setTimerStarted] = useState(false);
+  const [dataLoaded, setDataLoaded] = useState(false);
 
   const [categories, setCategories] = useState("");
   const [dataUrl, setDataUrl] = useState("");
@@ -59,9 +60,11 @@ function App() {
     }
   }, [dataUrl]);
 
-  if (questionData !== "") {
-    dataLoaded = true;
-  }
+  useEffect(() => {
+    if (questionData !== "") {
+      setDataLoaded(true);
+    }
+  }, [questionData]);
 
   if (categories !== "") {
     categoriesLoaded = true;
