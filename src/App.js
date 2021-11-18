@@ -9,8 +9,12 @@ import QuestionNumberTracker from "./components/QuestionNumberTracker";
 const TIME_LIMIT = 10;
 
 function App() {
+
+  // Question data is all of the data read from the api (from dataUrl). Question is simply the question.
   const [questionData, setQuestionData] = useState("");
   const [question, setQuestion] = useState("");
+  const [playersAnswers, setPlayersAnswers] = useState("");
+
   const [correctAnswer, setCorrectAnswer] = useState("");
   const [wrongAnswers, setWrongAnswers] = useState([])
   const [questionNumber, setQuestionNumber] = useState(0);
@@ -103,7 +107,7 @@ function App() {
   }
 
   function decrementTimer() {
-    setTimeLeft((timeLeft) => timeLeft - 1);
+      setTimeLeft((timeLeft) => timeLeft - 1);
   }
 
   function startTimer() {
@@ -122,6 +126,10 @@ function App() {
     if (optionSelected === correctAnswer) {
       score.current += 1;
     }
+
+    // Keep track of the player's answers so we can give a summary at the end of the quiz.
+    const answerSelected = {id: questionNumber, question: question, answer: optionSelected, correctAnswer: correctAnswer};
+    setPlayersAnswers([...playersAnswers, answerSelected]);
 
     resetTimer();
     getNextQuestion();
@@ -143,15 +151,16 @@ function App() {
       {!startGame && categoriesLoaded && !finishedGame ? <StartGame startGame={startGame} onStart={setStartGame} 
       startTimer={startTimer} categories={categories} setSettings={setSettings} /> : ""}
 
-      {finishedGame ? <Results score={score.current} /> : ""}
+      {finishedGame ? <Results score={score.current} playersAnswers={playersAnswers} /> : ""}
 
       {startGame && dataLoaded && !finishedGame ? <QuestionNumberTracker questionNumber={questionNumber} 
       enteredNumberQuestions={enteredNumberQuestions.current} /> : ""}
 
+      {startGame && dataLoaded && !finishedGame ? 
       <div id="question-timer-container">
-        {startGame && dataLoaded && !finishedGame ? <Question question={question} /> : ""}
-        {startGame && dataLoaded && !finishedGame ? <Timer timeLeft={timeLeft} /> : ""}
-      </div>
+        <Question question={question} />
+        <Timer timeLeft={timeLeft} />
+      </div> : ""}
 
       {startGame && dataLoaded && !finishedGame ? <Options correctAnswer={correctAnswer} wrongAnswers={wrongAnswers}
         timerStarted={timerStarted} resetTimeLeft={resetTimer} checkAnswer={checkAnswer} /> 
