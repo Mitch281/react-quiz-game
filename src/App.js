@@ -23,7 +23,6 @@ function App() {
 
   const [startGame, setStartGame] = useState(false);
   const [finishedGame, setFinishedGame] = useState(false);
-  const [timerStarted, setTimerStarted] = useState(false);
   const [categoriesLoaded, setCategoriesLoaded] = useState(false);
   const [dataLoaded, setDataLoaded] = useState(false);
 
@@ -111,7 +110,6 @@ function App() {
   }
 
   function startTimer() {
-    setTimerStarted(true);
     setInterval(decrementTimer, 1000);
   }
 
@@ -166,7 +164,7 @@ function App() {
       </div> : ""}
 
       {startGame && dataLoaded && !finishedGame ? <Options correctAnswer={correctAnswer} wrongAnswers={wrongAnswers}
-        timerStarted={timerStarted} resetTimeLeft={resetTimer} checkAnswer={checkAnswer} /> 
+        resetTimeLeft={resetTimer} checkAnswer={checkAnswer} /> 
         : ""}
     </div>
   );
