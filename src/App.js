@@ -9,8 +9,12 @@ import QuestionNumberTracker from "./components/QuestionNumberTracker";
 const TIME_LIMIT = 10;
 
 function App() {
+
+  // Question data is all of the data read from the api (from dataUrl). Question is simply the question.
   const [questionData, setQuestionData] = useState("");
   const [question, setQuestion] = useState("");
+  const [playersAnswers, setPlayersAnswers] = useState("");
+
   const [correctAnswer, setCorrectAnswer] = useState("");
   const [wrongAnswers, setWrongAnswers] = useState([])
   const [questionNumber, setQuestionNumber] = useState(0);
@@ -19,7 +23,6 @@ function App() {
 
   const [startGame, setStartGame] = useState(false);
   const [finishedGame, setFinishedGame] = useState(false);
-  const [timerStarted, setTimerStarted] = useState(false);
   const [categoriesLoaded, setCategoriesLoaded] = useState(false);
   const [dataLoaded, setDataLoaded] = useState(false);
 
@@ -28,6 +31,7 @@ function App() {
 
   const score = useRef(0);
   const enteredNumberQuestions = useRef(0);
+  const timerInterval = useRef();
 
   // Fetch categories and their id's from api. This helps us creating select menu for categories, in that we won't
   // need to manually write a bunch of html option tags.
@@ -79,6 +83,12 @@ function App() {
     }
   }, [questionNumber]);
 
+  useEffect(() => {
+    if (finishedGame) {
+      clearInterval(timerInterval.current);
+    }
+  }, [finishedGame]);
+
   function setData() {
     try {
       // Set the data for the next question.
@@ -107,8 +117,7 @@ function App() {
   }
 
   function startTimer() {
-    setTimerStarted(true);
-    setInterval(decrementTimer, 1000);
+    timerInterval.current = setInterval(decrementTimer, 1000);
   }
 
   function checkAnswer(e) {
@@ -123,6 +132,10 @@ function App() {
       score.current += 1;
     }
 
+    // Keep track of the player's answers so we can give a summary at the end of the quiz.
+    const answerSelected = {id: questionNumber, question: question, answer: optionSelected, correctAnswer: correctAnswer};
+    setPlayersAnswers([...playersAnswers, answerSelected]);
+
     resetTimer();
     getNextQuestion();
   }
@@ -134,6 +147,9 @@ function App() {
   }
 
   if (timeLeft === 0) {
+    const answerSelected = {id: questionNumber, question: question, answer: "", correctAnswer: correctAnswer};
+    setPlayersAnswers([...playersAnswers, answerSelected]);
+    
     resetTimer();
     getNextQuestion();
   }
@@ -143,18 +159,19 @@ function App() {
       {!startGame && categoriesLoaded && !finishedGame ? <StartGame startGame={startGame} onStart={setStartGame} 
       startTimer={startTimer} categories={categories} setSettings={setSettings} /> : ""}
 
-      {finishedGame ? <Results score={score.current} /> : ""}
+      {finishedGame ? <Results score={score.current} playersAnswers={playersAnswers} /> : ""}
 
       {startGame && dataLoaded && !finishedGame ? <QuestionNumberTracker questionNumber={questionNumber} 
       enteredNumberQuestions={enteredNumberQuestions.current} /> : ""}
 
+      {startGame && dataLoaded && !finishedGame ? 
       <div id="question-timer-container">
-        {startGame && dataLoaded && !finishedGame ? <Question question={question} /> : ""}
-        {startGame && dataLoaded && !finishedGame ? <Timer timeLeft={timeLeft} /> : ""}
-      </div>
+        <Question question={question} />
+        <Timer timeLeft={timeLeft} />
+      </div> : ""}
 
       {startGame && dataLoaded && !finishedGame ? <Options correctAnswer={correctAnswer} wrongAnswers={wrongAnswers}
-        timerStarted={timerStarted} resetTimeLeft={resetTimer} checkAnswer={checkAnswer} /> 
+        resetTimeLeft={resetTimer} checkAnswer={checkAnswer} /> 
         : ""}
     </div>
   );
