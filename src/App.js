@@ -31,6 +31,7 @@ function App() {
 
   const score = useRef(0);
   const enteredNumberQuestions = useRef(0);
+  const timerInterval = useRef();
 
   // Fetch categories and their id's from api. This helps us creating select menu for categories, in that we won't
   // need to manually write a bunch of html option tags.
@@ -82,6 +83,12 @@ function App() {
     }
   }, [questionNumber]);
 
+  useEffect(() => {
+    if (finishedGame) {
+      clearInterval(timerInterval.current);
+    }
+  }, [finishedGame]);
+
   function setData() {
     try {
       // Set the data for the next question.
@@ -110,7 +117,7 @@ function App() {
   }
 
   function startTimer() {
-    setInterval(decrementTimer, 1000);
+    timerInterval.current = setInterval(decrementTimer, 1000);
   }
 
   function checkAnswer(e) {
