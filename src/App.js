@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Question from "./components/Question";
 import Timer from "./components/Timer";
 import StartGame from "./components/StartGame";
@@ -9,7 +9,6 @@ import QuestionNumberTracker from "./components/QuestionNumberTracker";
 const TIME_LIMIT = 30;
 let dataLoaded = false;
 let categoriesLoaded = false;
-let score = 0;
 
 function App() {
   const [questionData, setQuestionData] = useState("");
@@ -25,6 +24,8 @@ function App() {
 
   const [categories, setCategories] = useState("");
   const [dataUrl, setDataUrl] = useState("");
+
+  const score = useRef(0);
 
   // Fetch categories and their id's from api. This helps us creating select menu for categories, in that we won't
   // need to manually write a bunch of html option tags.
@@ -113,7 +114,7 @@ function App() {
       optionSelected = e.target.innerText;
     }
     if (optionSelected === correctAnswer) {
-      score++;
+      score.current += 1;
     }
   }
 
@@ -132,7 +133,7 @@ function App() {
       {!startGame && categoriesLoaded && !finishedGame ? <StartGame startGame={startGame} onStart={setStartGame} startTimer={startTimer}
       categories={categories} setSettings={setSettings} /> : ""}
 
-      {finishedGame ? <Results score={score} /> : ""}
+      {finishedGame ? <Results score={score.current} /> : ""}
 
       {startGame && dataLoaded && !finishedGame ? <QuestionNumberTracker questionNumber={questionNumber} /> : ""}
 
