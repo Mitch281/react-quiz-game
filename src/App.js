@@ -6,7 +6,7 @@ import Options from "./components/Options";
 import Results from "./components/Results";
 import QuestionNumberTracker from "./components/QuestionNumberTracker";
 
-const TIME_LIMIT = 30;
+const TIME_LIMIT = 10;
 
 function App() {
   const [questionData, setQuestionData] = useState("");
@@ -124,6 +124,7 @@ function App() {
     }
 
     resetTimer();
+    getNextQuestion();
   }
 
   function setSettings(numberQuestions, category, difficulty) {
@@ -134,7 +135,7 @@ function App() {
 
   if (timeLeft === 0) {
     resetTimer();
-    getNextQuestion();;
+    getNextQuestion();
   }
 
   return (
@@ -153,7 +154,7 @@ function App() {
       </div>
 
       {startGame && dataLoaded && !finishedGame ? <Options correctAnswer={correctAnswer} wrongAnswers={wrongAnswers}
-        onAnswer={getNextQuestion} timerStarted={timerStarted} resetTimeLeft={resetTimer} checkAnswer={checkAnswer} /> 
+        timerStarted={timerStarted} resetTimeLeft={resetTimer} checkAnswer={checkAnswer} /> 
         : ""}
     </div>
   );
