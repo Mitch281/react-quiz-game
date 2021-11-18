@@ -107,7 +107,7 @@ function App() {
   }
 
   function decrementTimer() {
-      setTimeLeft((timeLeft) => timeLeft - 1);
+    setTimeLeft((timeLeft) => timeLeft - 1);
   }
 
   function startTimer() {
@@ -142,6 +142,9 @@ function App() {
   }
 
   if (timeLeft === 0) {
+    const answerSelected = {id: questionNumber, question: question, answer: "", correctAnswer: correctAnswer};
+    setPlayersAnswers([...playersAnswers, answerSelected]);
+    
     resetTimer();
     getNextQuestion();
   }
