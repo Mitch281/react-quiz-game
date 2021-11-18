@@ -72,10 +72,6 @@ function App() {
     }
   }, [categories]);
 
-  // if (categories !== "") {
-  //   categoriesLoaded = true;
-  // }
-
   useEffect(() => {
     if (dataLoaded) {
       setData();
