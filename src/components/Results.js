@@ -22,8 +22,8 @@ const Results = (props) => {
                     <tr>
                         <th>Number</th>
                         <th>Question</th>
-                        <th>Correct Answer</th>
                         <th>Your Answer</th>
+                        <th>Correct Answer</th>
                     </tr>
                 </thead>
                 <tbody>
