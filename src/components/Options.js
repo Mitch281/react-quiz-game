@@ -19,6 +19,7 @@ const Options = (props) => {
         while (counter < 4) {
             const orderIndex = getRandomInt(0, 4);
             const order = orders[orderIndex]
+            // eslint-disable-next-line
             switch (counter) {
                 case 0:
                     if (orders.includes(order)) {
@@ -61,11 +62,13 @@ const Options = (props) => {
             setOrderDetermined(false);
         }
         props.setTimeRunOut(false);
+    // eslint-disable-next-line
     }, [props.timeRunOut]);
 
     useEffect(() => {
         determineOrder();
         setOrderDetermined(true);
+    // eslint-disable-next-line
     }, [props.correctAnswer]);
 
     function outputHtml() {

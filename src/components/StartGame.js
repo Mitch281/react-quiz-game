@@ -48,6 +48,7 @@ const StartGame = (props) => {
 
     useEffect(() => {
         setCategoryOptions(createOptionTags());
+    // eslint-disable-next-line
     }, []);
 
     return (

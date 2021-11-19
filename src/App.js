@@ -52,6 +52,7 @@ function App() {
     }
 
     fetchCategories();
+    // eslint-disable-next-line
   }, [])
 
   useEffect(() => {
@@ -74,6 +75,7 @@ function App() {
     if (!(dataUrl === "")) {
       fetchData();
     }
+    // eslint-disable-next-line
   }, [dataUrl]);
 
   useEffect(() => {
@@ -92,6 +94,7 @@ function App() {
     if (dataLoaded) {
       setData();
     }
+    // eslint-disable-next-line
   }, [questionNumber]);
 
   useEffect(() => {
