@@ -54,7 +54,15 @@ button {
 }
 
 #timer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-family: Oswald;
+  border: 1px solid black;
+  border-radius: 50%;
+  overflow: hidden;
+  width: 5em;
+  height: 5em;
 }
 
 #question-timer-container {
