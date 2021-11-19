@@ -90,6 +90,16 @@ button {
   border: none;
 }
 
+@media only screen and (max-device-width: 480px) {
+  #options button {
+    flex: 90%;
+    background-color: black;
+    width: 25vh;
+    height: 7vh;
+    border: none;
+  }
+}
+
 #options button:hover {
   border: 3px solid greenyellow;
 }
