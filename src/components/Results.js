@@ -10,6 +10,7 @@ const Results = (props) => {
                 <td>{ReactHtmlParser (playersAnswer.question)}</td>
                 <td>{ReactHtmlParser (playersAnswer.answer)}</td>
                 <td>{ReactHtmlParser (playersAnswer.correctAnswer)}</td>
+                {playersAnswer.answer === playersAnswer.correctAnswer ? <td>correct</td> : <td>wrong</td>}
             </tr>
         );
     }
@@ -24,6 +25,7 @@ const Results = (props) => {
                         <th>Question</th>
                         <th>Your Answer</th>
                         <th>Correct Answer</th>
+                        <th>Result</th>
                     </tr>
                 </thead>
                 <tbody>
