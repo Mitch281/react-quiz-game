@@ -52,6 +52,17 @@ const Options = (props) => {
         }
     }
 
+    // Here, we have reached the next question by letting the time run out. Thus, instead of changing state of 
+    // orderDetermined through onCLick event, we have to change it with this useEffect hook. This ensures that
+    // we do not render the options on the screen until the order has been determined in the case that the user
+    // does not answer the question (case where user answers question is in the next useEffect hook).
+    useEffect(() => {
+        if (props.timeRunOut) {
+            setOrderDetermined(false);
+        }
+        props.setTimeRunOut(false);
+    }, [props.timeRunOut]);
+
     useEffect(() => {
         determineOrder();
         setOrderDetermined(true);

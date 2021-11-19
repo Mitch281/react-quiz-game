@@ -20,6 +20,7 @@ function App() {
   const [questionNumber, setQuestionNumber] = useState(0);
 
   const [timeLeft, setTimeLeft] = useState(TIME_LIMIT);
+  const [timeRunOut, setTimeRunOut] = useState(false);
 
   const [startGame, setStartGame] = useState(false);
   const [finishedGame, setFinishedGame] = useState(false);
@@ -150,6 +151,7 @@ function App() {
     const answerSelected = {id: questionNumber, question: question, answer: "", correctAnswer: correctAnswer};
     setPlayersAnswers([...playersAnswers, answerSelected]);
     
+    setTimeRunOut(true);
     resetTimer();
     getNextQuestion();
   }
@@ -171,7 +173,7 @@ function App() {
       </div> : ""}
 
       {startGame && dataLoaded && !finishedGame ? <Options correctAnswer={correctAnswer} wrongAnswers={wrongAnswers}
-        resetTimeLeft={resetTimer} checkAnswer={checkAnswer} /> 
+        resetTimeLeft={resetTimer} checkAnswer={checkAnswer} timeRunOut={timeRunOut} setTimeRunOut={setTimeRunOut} /> 
         : ""}
     </div>
   );
