@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
 const StartGame = (props) => {
+    console.log("rendered");
     const [categoryOptions, setCategoryOptions] = useState("");
 
     // Number of questions can only be between 1 and 50.
