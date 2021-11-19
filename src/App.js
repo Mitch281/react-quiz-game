@@ -176,18 +176,18 @@ function App() {
       {!startGame && categoriesLoaded && !finishedGame ? <StartGame startGame={startGame} onStart={setStartGame} 
       startTimer={startTimer} categories={categories} setSettings={setSettings} /> : ""}
 
-      {finishedGame ? <Results score={score.current} playersAnswers={playersAnswers} /> : ""}
+      {!errorFound && finishedGame ? <Results score={score.current} playersAnswers={playersAnswers} /> : ""}
 
-      {startGame && dataLoaded && !finishedGame ? <QuestionNumberTracker questionNumber={questionNumber} 
+      {!errorFound && startGame && dataLoaded && !finishedGame ? <QuestionNumberTracker questionNumber={questionNumber} 
       enteredNumberQuestions={enteredNumberQuestions.current} /> : ""}
 
-      {startGame && dataLoaded && !finishedGame ? 
+      {!errorFound && startGame && dataLoaded && !finishedGame ? 
       <div id="question-timer-container">
         <Question question={question} />
         <Timer timeLeft={timeLeft} />
       </div> : ""}
 
-      {startGame && dataLoaded && !finishedGame ? <Options correctAnswer={correctAnswer} wrongAnswers={wrongAnswers}
+      {!errorFound && startGame && dataLoaded && !finishedGame ? <Options correctAnswer={correctAnswer} wrongAnswers={wrongAnswers}
         resetTimeLeft={resetTimer} checkAnswer={checkAnswer} timeRunOut={timeRunOut} setTimeRunOut={setTimeRunOut} /> 
         : ""}
     </div>
