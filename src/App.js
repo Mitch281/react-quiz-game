@@ -5,6 +5,7 @@ import StartGame from "./components/StartGame";
 import Options from "./components/Options";
 import Results from "./components/Results";
 import QuestionNumberTracker from "./components/QuestionNumberTracker";
+import Error from "./components/Error";
 
 const TIME_LIMIT = 10;
 
@@ -26,6 +27,7 @@ function App() {
   const [finishedGame, setFinishedGame] = useState(false);
   const [categoriesLoaded, setCategoriesLoaded] = useState(false);
   const [dataLoaded, setDataLoaded] = useState(false);
+  const [errorFound, setErrorFound] = useState(false);
 
   const [categories, setCategories] = useState("");
   const [dataUrl, setDataUrl] = useState("");
@@ -38,11 +40,15 @@ function App() {
   // need to manually write a bunch of html option tags.
   useEffect(() => {
     async function fetchCategories() {
-      const url = "https://opentdb.com/api_category.php";
-      const response = await fetch(url);
-      const data = await response.json();
+      try {
+        const url = "https://opentdb.com/api_category.php";
+        const response = await fetch(url);
+        const data = await response.json();
 
-      setCategories(data.trivia_categories);
+        setCategories(data.trivia_categories);
+      } catch (error) {
+        setErrorFound(true);
+      }
     }
 
     fetchCategories();
@@ -50,14 +56,18 @@ function App() {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch(dataUrl);
-      const data = await response.json();
-      setQuestionData(data);
+      try {
+        const response = await fetch(dataUrl);
+        const data = await response.json();
+        setQuestionData(data);
 
-      // Set the initial data.
-      setQuestion(data.results[questionNumber].question);
-      setCorrectAnswer(data.results[questionNumber].correct_answer);
-      setWrongAnswers(data.results[questionNumber].incorrect_answers);
+        // Set the initial data.
+        setQuestion(data.results[questionNumber].question);
+        setCorrectAnswer(data.results[questionNumber].correct_answer);
+        setWrongAnswers(data.results[questionNumber].incorrect_answers);
+      } catch (error) {
+        setErrorFound(true);
+      }
     }
 
     // We need to check this because the useEffect hook runs on component load, when data url is empty.
@@ -158,6 +168,8 @@ function App() {
 
   return (
     <div className="App">
+      {errorFound ? <Error /> : ""}
+
       {!startGame && categoriesLoaded && !finishedGame ? <StartGame startGame={startGame} onStart={setStartGame} 
       startTimer={startTimer} categories={categories} setSettings={setSettings} /> : ""}
 
