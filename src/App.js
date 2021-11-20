@@ -6,6 +6,7 @@ import Options from "./components/Options";
 import Results from "./components/Results";
 import QuestionNumberTracker from "./components/QuestionNumberTracker";
 import Error from "./components/Error";
+import LoadingScreen from "./components/LoadingScreen";
 
 const TIME_LIMIT = 10;
 
@@ -181,6 +182,8 @@ function App() {
 
       {!startGame && categoriesLoaded && !finishedGame ? <StartGame startGame={startGame} onStart={setStartGame} 
       startTimer={startTimer} categories={categories} setSettings={setSettings} /> : ""}
+
+      {startGame && !dataLoaded ? <LoadingScreen /> : ""}
 
       {!errorFound && finishedGame ? <Results score={score.current} playersAnswers={playersAnswers} 
       numberQuestions={enteredNumberQuestions.current} /> : ""}
