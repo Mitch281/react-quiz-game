@@ -22,7 +22,7 @@ const Results = (props) => {
 
     return (
         <div>
-            <p>You scored: {props.score}</p>
+            <p>You scored: {props.score} / {props.numberQuestions} </p>
             <table id="results-details">
                 <thead>
                     <tr>

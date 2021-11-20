@@ -176,7 +176,8 @@ function App() {
       {!startGame && categoriesLoaded && !finishedGame ? <StartGame startGame={startGame} onStart={setStartGame} 
       startTimer={startTimer} categories={categories} setSettings={setSettings} /> : ""}
 
-      {!errorFound && finishedGame ? <Results score={score.current} playersAnswers={playersAnswers} /> : ""}
+      {!errorFound && finishedGame ? <Results score={score.current} playersAnswers={playersAnswers} 
+      numberQuestions={enteredNumberQuestions.current} /> : ""}
 
       {!errorFound && startGame && dataLoaded && !finishedGame ? <QuestionNumberTracker questionNumber={questionNumber} 
       enteredNumberQuestions={enteredNumberQuestions.current} /> : ""}
