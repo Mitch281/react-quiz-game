@@ -2,6 +2,11 @@ import ReactHtmlParser from 'react-html-parser';
 
 const Results = (props) => {
 
+    function refreshPage() {
+        window.location.reload();
+        return false;
+    }
+
     function createTableRow(playersAnswer) {
         const key = Math.floor(Math.random() * 10000);
         return (
@@ -32,6 +37,7 @@ const Results = (props) => {
                     {props.playersAnswers.map(createTableRow)}
                 </tbody>
             </table>
+            <button onClick={() => refreshPage()}>Play Again</button>
         </div>
     )
 }
