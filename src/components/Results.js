@@ -22,7 +22,7 @@ const Results = (props) => {
 
     return (
         <div>
-            <p>You scored: {props.score} / {props.numberQuestions} </p>
+            <h1 id="score">You scored: {props.score} / {props.numberQuestions}</h1>
             <table id="results-details">
                 <thead>
                     <tr>
@@ -37,7 +37,9 @@ const Results = (props) => {
                     {props.playersAnswers.map(createTableRow)}
                 </tbody>
             </table>
-            <button onClick={() => refreshPage()}>Play Again</button>
+            <div id="play-again-button-container">
+                <button onClick={() => refreshPage()}><span>Play Again</span></button>
+            </div>
         </div>
     )
 }

@@ -98,3 +98,30 @@ button {
 #options button span {
   color: white;
 }
+
+#score {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#play-again-button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#play-again-button-container button {
+  background-color: black;
+  width: 25vw;
+  height: 5vw;
+  margin-top: 20px;
+}
+
+#play-again-button-container button:hover {
+  border: 3px solid greenyellow;
+}
+
+#play-again-button-container button span {
+  color: white;
+}
