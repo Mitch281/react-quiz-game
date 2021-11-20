@@ -2,8 +2,10 @@ import React from 'react'
 
 const LoadingScreen = () => {
     return (
-        <div>
-            Loading
+        <div id="loader-container">
+            <h1>Loading...</h1>
+            <div id="loader">
+            </div>
         </div>
     )
 }
