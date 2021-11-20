@@ -35,7 +35,6 @@ const StartGame = (props) => {
         }
 
         props.setSettings(numberQuestions, category, difficulty);
-        props.startTimer();
 
         setNumberQuestions("");
         setCategory("");
@@ -52,29 +51,31 @@ const StartGame = (props) => {
     }, []);
 
     return (
-        <form onSubmit={beginTheQuiz}>
-            <div id="form-inputs">
-                <label htmlFor="number-of-questions">Number of Questions</label>
-                <input type="text" id="number-of-questions" onChange={(e) => setNumberQuestions(e.target.value)}
-                value={numberQuestions}></input>
+        <div>
+            <form onSubmit={beginTheQuiz}>
+                <div id="form-inputs">
+                    <label htmlFor="number-of-questions">Number of Questions</label>
+                    <input type="text" id="number-of-questions" onChange={(e) => setNumberQuestions(e.target.value)}
+                    value={numberQuestions}></input>
 
-                <label htmlFor="category">Select Category:</label>
-                <select id="category" onChange={(e) => setCategory(e.target.value)}>
-                    {categoryOptions}
-                </select>
+                    <label htmlFor="category">Select Category:</label>
+                    <select id="category" onChange={(e) => setCategory(e.target.value)}>
+                        {categoryOptions}
+                    </select>
 
-                <label htmlFor="difficulty">Select difficulty: </label>
-                <select id="difficulty" onChange={(e) => setDifficulty(e.target.value)}>
-                    <option value="easy">Easy</option>
-                    <option value="medium">Medium</option>
-                    <option value="hard">Hard</option>
-                </select>
-            </div>
+                    <label htmlFor="difficulty">Select difficulty: </label>
+                    <select id="difficulty" onChange={(e) => setDifficulty(e.target.value)}>
+                        <option value="easy">Easy</option>
+                        <option value="medium">Medium</option>
+                        <option value="hard">Hard</option>
+                    </select>
+                </div>
 
-            <div id="submission">
-                <input type="submit" value="Start" />
-            </div>
-        </form>
+                <div id="submission">
+                    <input type="submit" value="Start" />
+                </div>
+            </form>
+        </div>
     );
 }
 

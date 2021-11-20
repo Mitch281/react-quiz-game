@@ -130,6 +130,12 @@ function App() {
     setTimeLeft((timeLeft) => timeLeft - 1);
   }
 
+  useEffect(() => {
+    if (dataLoaded) {
+      startTimer();
+    }
+  }, [dataLoaded]);
+
   function startTimer() {
     timerInterval.current = setInterval(decrementTimer, 1000);
   }
