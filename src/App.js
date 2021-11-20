@@ -135,6 +135,7 @@ function App() {
     if (dataLoaded) {
       startTimer();
     }
+    // eslint-disable-next-line
   }, [dataLoaded]);
 
   function startTimer() {
