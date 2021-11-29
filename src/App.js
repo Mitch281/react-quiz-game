@@ -44,9 +44,11 @@ function App() {
       try {
         const url = "https://opentdb.com/api_category.php";
         const response = await fetch(url);
-        const data = await response.json();
 
-        setCategories(data.trivia_categories);
+        if (response.ok) {
+          const data = await response.json();
+          setCategories(data.trivia_categories);
+        }
       } catch (error) {
         setErrorFound(true);
       }
@@ -60,13 +62,15 @@ function App() {
     async function fetchData() {
       try {
         const response = await fetch(dataUrl);
-        const data = await response.json();
-        setQuestionData(data);
+        if (response.ok) {
+          const data = await response.json();
+          setQuestionData(data);
 
-        // Set the initial data.
-        setQuestion(data.results[questionNumber].question);
-        setCorrectAnswer(data.results[questionNumber].correct_answer);
-        setWrongAnswers(data.results[questionNumber].incorrect_answers);
+          // Set the initial data.
+          setQuestion(data.results[questionNumber].question);
+          setCorrectAnswer(data.results[questionNumber].correct_answer);
+          setWrongAnswers(data.results[questionNumber].incorrect_answers);
+        }
       } catch (error) {
         setErrorFound(true);
       }
